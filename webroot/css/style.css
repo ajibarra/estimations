@@ -1,0 +1,54 @@
+input.specification {
+	width: 200px;
+}
+
+#specifications input {
+	display: inline-block;
+	margin-right: 30px;
+}
+
+#specifications label {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.menu {
+	line-height:2em;
+	background: #003d4c;
+	float: right;
+}
+.menu a {
+	color: white;
+	text-decoration: none;
+	font-weight: normal;
+	padding: 0px 10px;
+}
+
+.menu a:hover {
+	color: #fff;
+	background: #003d4c;
+	text-decoration: underline;
+}
+
+.register-login {
+	width: 50%;
+	margin-left: 25%;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.register-login h2 {
+	font-size: 5em;
+}
+
+.register-login .input {
+	text-align: left;
+}
+
+.register-login .submit {
+	text-align: right;
+}
+
+.date {
+	width: 150px;
+}
