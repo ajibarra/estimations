@@ -94,4 +94,24 @@ class Project extends AppModel {
 		)
 	);
 
+	public function getFinalEstimations($id) {
+		$estimations = $this->Estimation->find('all', array(
+			'conditions' => array(
+				'project_id' => $id
+			)
+		));
+		$teamEstimations = array();
+		foreach ($estimations as $estimation) {
+			//=ROUNDUP(((1 * C2) + (4 * D2) + (1 * E2)) / 6)
+			$teamEstimations[] = round((( 1 * $estimation['Estimation']['optimistic']) + (4 * $estimation['Estimation']['likely']) + (1 * $estimation['Estimation']['pessimistic'])) / 6);
+		}
+		$finalEstimations['optimistic'] =  min($teamEstimations);
+		rsort($teamEstimations); //Sorting to calculate median
+		$median = round(count($teamEstimations) / 2) - 1; //Median index
+		$finalEstimations['most_likely'] = ($teamEstimations[$median] + max($teamEstimations)) / 2;
+		$finalEstimations['pessimistic'] = max($teamEstimations);
+		$finalEstimations['final_estimation'] = round((( 1 * $finalEstimations['optimistic']) + (4 * $finalEstimations['most_likely']) + (1 * $finalEstimations['pessimistic'])) / 6);
+		return $finalEstimations;
+		
+	}
 }

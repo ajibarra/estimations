@@ -4,7 +4,7 @@
 		<legend><?php echo __('Please indicate final estimation for this project'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('final_estimation');
+		echo $this->Form->input('confirm', array('type' => 'checkbox', 'label' => 'Are you sure to close this project for estimations?'));
 		echo $this->Form->hidden('status', array('value' => Project::ESTIMATION_SENT));
 	?>
 	</fieldset>

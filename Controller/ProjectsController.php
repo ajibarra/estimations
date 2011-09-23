@@ -98,12 +98,22 @@ class ProjectsController extends AppController {
 			'Project.id' => $id)));
 		if ($this->request->is('post')) {
 			$this->request->data['Project']['id'] = $id;
-			if ($this->Project->save($this->request->data)) {
-				$this->Session->setFlash(__('The project has been marked as sent'));
+			if ($this->request->data['Project']['confirm']) {
+				$finalEstimations = $this->Project->getFinalEstimations($id);
+				$this->request->data['Project']['optimistic'] = $finalEstimations['optimistic'] ;
+				$this->request->data['Project']['most_likely'] = $finalEstimations['most_likely'] ;
+				$this->request->data['Project']['pessimistic'] = $finalEstimations['pessimistic'];
+				$this->request->data['Project']['final_estimation'] = $finalEstimations['final_estimation'];
+				if ($this->Project->save($this->request->data)) {
+					$this->Session->setFlash(__('The project has been marked as sent'));
+				} else {
+					$this->Session->setFlash(__('The project could not be marked as sent. Please, try again.'));
+				}
+				$this->redirect(array('action' => 'view', $id));
 			} else {
-				$this->Session->setFlash(__('The project could not be marked as sent. Please, try again.'));
+				$this->Session->setFlash(__('You need to mark the checkbox. Please, try again.'));
 			}
-			$this->redirect(array('action' => 'view', $id));
+			
 		} 
 		
 	}

@@ -6,7 +6,6 @@
 			<th><?php echo $this->Paginator->sort('active');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
 			<th><?php echo $this->Paginator->sort('email');?></th>
-			<th><?php echo $this->Paginator->sort('staff_number');?></th>
 	</tr>
 	<?php
 	$i = 0;
@@ -18,7 +17,6 @@
 		</td>
 		<td><?php echo h($user['Profile']['name']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
-		<td><?php echo h($user['Profile']['staff_number']); ?>&nbsp;</td>
 	</tr>
 <?php endforeach; ?>
 	</table>
