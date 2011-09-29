@@ -44,7 +44,7 @@ class AppController extends Controller {
  *
  * @var array
  */
-	public $components = array('Auth', 'Session');
+	public $components = array('Auth', 'Session', 'DebugKit.Toolbar');
 
 /**
  * beforeFilter callback
