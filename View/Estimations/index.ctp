@@ -2,7 +2,6 @@
 	<h2><?php echo __('Estimations');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('user_id');?></th>
 			<th><?php echo $this->Paginator->sort('project_id');?></th>
 			<th><?php echo $this->Paginator->sort('optimistic');?></th>
@@ -10,16 +9,14 @@
 			<th><?php echo $this->Paginator->sort('pessimistic');?></th>
 			<th><?php echo $this->Paginator->sort('notes');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	$i = 0;
 	foreach ($estimations as $estimation): ?>
 	<tr>
-		<td><?php echo h($estimation['Estimation']['id']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($estimation['User']['id'], array('controller' => 'users', 'action' => 'view', $estimation['User']['id'])); ?>
+			<?php echo $this->Html->link($estimation['User']['email'], array('controller' => 'app_users', 'action' => 'view', $estimation['User']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Html->link($estimation['Project']['name'], array('controller' => 'projects', 'action' => 'view', $estimation['Project']['id'])); ?>
@@ -29,10 +26,8 @@
 		<td><?php echo h($estimation['Estimation']['pessimistic']); ?>&nbsp;</td>
 		<td><?php echo h($estimation['Estimation']['notes']); ?>&nbsp;</td>
 		<td><?php echo h($estimation['Estimation']['created']); ?>&nbsp;</td>
-		<td><?php echo h($estimation['Estimation']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $estimation['Estimation']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $estimation['Estimation']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $estimation['Estimation']['id']), null, __('Are you sure you want to delete # %s?', $estimation['Estimation']['id'])); ?>
 		</td>
 	</tr>
