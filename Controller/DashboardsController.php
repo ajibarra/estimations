@@ -14,13 +14,15 @@ class DashboardsController extends AppController {
  * @return void
  */
 	public function index() {
+		$projects = ClassRegistry::init('Project')->find('all', array(
+						'conditions' => array(
+							'Project.status' => array(Project::OPEN))));
 		if ($this->Auth->user('is_admin')) {
-			
+			//TODO Dashboard info for admins
 		} else {
-			$projects = ClassRegistry::init('Project')->find('all', array(
-				'conditions' => array(
-					'Project.status' => array(Project::OPEN))));
+			//TODO Dashboard info for users
 		}	
+		$this->set('projects', $projects);
 		
 	}
 
