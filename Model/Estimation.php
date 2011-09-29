@@ -89,6 +89,7 @@ class Estimation extends AppModel {
 		'Project' => array(
 			'className' => 'Project',
 			'foreignKey' => 'project_id',
+			'type'=>'INNER',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
