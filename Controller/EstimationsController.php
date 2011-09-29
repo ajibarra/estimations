@@ -8,6 +8,13 @@ App::uses('Project', 'Model');
  */
 class EstimationsController extends AppController {
 
+	
+	/**
+	* Components
+	*
+	* @var array
+	*/
+	public $components = array('Auth', 'Session', 'Paginator');
 
 /**
  * index method
@@ -16,6 +23,11 @@ class EstimationsController extends AppController {
  */
 	public function index() {
 		$this->Estimation->recursive = 0;
+		$this->Paginator->settings = array(
+			'contain' => array('User',
+				'Project' => array('conditions' => array('Project.status' => array(Project::ESTIMATION_SENT,Project::DELIVERED)))	
+			)
+		);
 		$this->set('estimations', $this->paginate());
 	}
 
