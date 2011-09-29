@@ -69,7 +69,8 @@ class AppController extends Controller {
 				'scope' => array('AppUser.active' => 1)
         	),
 		);
-		$this->Auth->loginRedirect = array('controller' => 'projects', 'action' => 'index');
+		$this->Auth->authorize = array('Estimation');
+		$this->Auth->loginRedirect = array('controller' => 'dashboards', 'action' => 'index');
 		$this->Auth->loginAction = array('controller' => 'app_users', 'action' => 'login');
 		$this->Auth->authError = __("Sorry, you can't access the page requested", true);
 		

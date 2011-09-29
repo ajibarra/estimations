@@ -62,4 +62,8 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
+
+App::uses('IniReader', 'Configure');
+Configure::config('estimation_permission', new IniReader(__DIR__ . DS));
+
 CakePlugin::loadAll(); // Loads all plugins at once
