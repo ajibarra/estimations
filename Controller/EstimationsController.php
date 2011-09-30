@@ -74,7 +74,7 @@ class EstimationsController extends AppController {
 				$this->Session->setFlash(__('The estimation could not be saved. Please, try again.'));
 			}
 		}
-		$this->set(compact('userId', 'projectId'));
+		$this->set(compact('userId', 'project'));
 	}
 
 /**
