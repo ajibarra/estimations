@@ -16,31 +16,35 @@
 			<?php echo h($project['Project']['status']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Optimistic'); ?></dt>
-		<dd>
-			<?php echo h($project['Project']['optimistic']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Most likely'); ?></dt>
-		<dd>
-			<?php echo h($project['Project']['most_likely']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Pessimistic'); ?></dt>
-		<dd>
-			<?php echo h($project['Project']['pessimistic']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Final Estimation'); ?></dt>
-		<dd>
-			<?php echo h($project['Project']['final_estimation']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Time Spent'); ?></dt>
-		<dd>
-			<?php echo h($project['Project']['time_spent']); ?>
-			&nbsp;
-		</dd>
+		<?php if ($project['Project']['status'] == Project::ESTIMATION_SENT): ?>
+			<dt><?php echo __('Optimistic'); ?></dt>
+			<dd>
+				<?php echo h($project['Project']['optimistic']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Most likely'); ?></dt>
+			<dd>
+				<?php echo h($project['Project']['most_likely']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Pessimistic'); ?></dt>
+			<dd>
+				<?php echo h($project['Project']['pessimistic']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Final Estimation'); ?></dt>
+			<dd>
+				<?php echo h($project['Project']['final_estimation']); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
+		<?php if ($project['Project']['status'] == Project::DELIVERED): ?>
+			<dt><?php echo __('Time Spent'); ?></dt>
+			<dd>
+				<?php echo h($project['Project']['time_spent']); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
 		<dt><?php echo __('Created'); ?></dt>
 		<dd>
 			<?php echo h($project['Project']['created']); ?>
@@ -52,10 +56,13 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
+		<li><?php echo $this->Html->link(__('Dashboard'), array('controller' => 'app_users', 'action' => 'dashboard')); ?></li>
 		<li><?php if ($project['Project']['status'] == Project::OPEN) echo $this->Html->link(__('Estimate'), array('controller' => 'estimations', 'action' => 'add', $project['Project']['id']));?></li>
-		<li><?php if ($project['Project']['status'] == Project::CREATED) echo $this->Html->link(__('Open for estimations'), array('controller' => 'projects', 'action' => 'open', $project['Project']['id']));?></li>
-		<li><?php if ($project['Project']['status'] == Project::OPEN) echo $this->Html->link(__('Close for estimations'), array('controller' => 'projects', 'action' => 'send', $project['Project']['id']));?></li>
-		<li><?php if ($project['Project']['status'] == Project::ESTIMATION_SENT) echo $this->Html->link(__('Finish project'), array('controller' => 'projects', 'action' => 'deliver', $project['Project']['id']));?></li>
+		<?php if ($this->Session->read('Auth.user.is_admin')): ?>
+			<li><?php if ($project['Project']['status'] == Project::CREATED) echo $this->Html->link(__('Open for estimations'), array('controller' => 'projects', 'action' => 'open', $project['Project']['id']));?></li>
+			<li><?php if ($project['Project']['status'] == Project::OPEN) echo $this->Html->link(__('Close for estimations'), array('controller' => 'projects', 'action' => 'send', $project['Project']['id']));?></li>
+			<li><?php if ($project['Project']['status'] == Project::ESTIMATION_SENT) echo $this->Html->link(__('Finish project'), array('controller' => 'projects', 'action' => 'deliver', $project['Project']['id']));?></li>
+		<?php endif; ?>
 	</ul>
 </div>
 <?php if (in_array($project['Project']['status'], array(Project::ESTIMATION_SENT, Project::DELIVERED))):?>
@@ -64,7 +71,7 @@
 		<?php if (!empty($project['Estimation'])):?>
 			<table cellpadding = "0" cellspacing = "0">
 			<tr>
-				<th><?php echo __('User Id'); ?></th>
+				<th><?php echo __('User'); ?></th>
 				<th><?php echo __('Optimistic'); ?></th>
 				<th><?php echo __('Likely'); ?></th>
 				<th><?php echo __('Pessimistic'); ?></th>
@@ -75,7 +82,7 @@
 				$i = 0;
 				foreach ($project['Estimation'] as $estimation): ?>
 				<tr>
-					<td><?php echo $estimation['user_id'];?></td>
+					<td><?php echo $estimation['User']['email'];?></td>
 					<td><?php echo $estimation['optimistic'];?></td>
 					<td><?php echo $estimation['likely'];?></td>
 					<td><?php echo $estimation['pessimistic'];?></td>

@@ -29,7 +29,22 @@ class ProjectsController extends AppController {
 		if (!$this->Project->exists()) {
 			throw new NotFoundException(__('Invalid project'));
 		}
-		$this->set('project', $this->Project->read(null, $id));
+		$project = $this->Project->find('first', array(
+			'contain' => array(
+				'Estimation.User',
+				'Client'
+			),
+			'conditions' => array(
+				'Project.id' => $id
+			)
+		));
+		if (in_array($project['Project']['status'], array(Project::ESTIMATION_SENT,Project::DELIVERED)) || $this->Auth->user('is_admin')) {
+			$this->set('project', $project);
+		} else {
+			$this->Session->setFlash(__('The project stills open for estimation'));
+			$this->redirect('/dashboard');
+		}
+		
 	}
 
 /**
