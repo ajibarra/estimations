@@ -52,3 +52,9 @@ input.specification {
 .date {
 	width: 150px;
 }
+
+.dashboard_section {
+	width: 30%;
+	display:inline-block;
+	margin-left:30px;
+}
