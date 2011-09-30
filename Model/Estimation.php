@@ -1,4 +1,31 @@
 <?php
+/**
+* Estimation Model
+*
+* Represents estimation content
+*
+* PHP Version 5
+*
+* Estimation Application
+*
+* Copyright (c) 2007-2010
+* Cake Development Corporation
+* 1785 E. Sahara Avenue, Suite 490-423
+* Las Vegas, Nevada 89104
+*
+* You may obtain a copy of the License at:
+* License page: http://projects.cakedc.com/licenses/TBD  TBD
+* Copyright page: http://cakedc.com/copyright/
+*
+* @copyright       	Copyright 2007-2011, Cake Development Corporation
+* @link            	http://cakedc.com/ Cake Development Corporation
+* @link            	http://ugrant.it/ Ugrant.it
+* @package			app
+* @subpackage		app.controllers
+* @since			estimation app v0.1
+* @license			http://projects.cakedc.com/licenses/TBD  TBD
+*/
+
 App::uses('AppModel', 'Model');
 /**
  * Estimation Model
