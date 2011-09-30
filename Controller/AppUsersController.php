@@ -114,5 +114,38 @@ class AppUsersController extends UsersController {
 		$this->layout = 'plain';
 	}
 	
-	
+	/**
+	 * Dashboard action
+	 * @see UsersController::index()
+	 */
+	public function dashboard() {
+		$openProjects = ClassRegistry::init('Project')->find('all', array(
+			'conditions' => array(
+				'Project.status' => array(Project::OPEN))));
+		foreach($openProjects as $i => $project) {
+			$openProjects[$i]['Project']['estimated'] = false;
+			foreach ($project['Estimation'] as $j => $estimation) {
+				if ($estimation['user_id'] == $this->Auth->user('id')) {
+					$openProjects[$i]['Project']['estimated'] = true;
+					break;
+				}
+			}
+				
+		}
+		
+		$sentProjects = ClassRegistry::init('Project')->find('all', array(
+			'conditions' => array(
+				'Project.status' => array(Project::ESTIMATION_SENT))));
+		$deliveredProjects = ClassRegistry::init('Project')->find('all', array(
+			'conditions' => array(
+				'Project.status' => array(Project::DELIVERED))));
+		if ($this->Auth->user('is_admin')) {
+			//TODO Dashboard info for admins
+		} else {
+			//TODO Dashboard info for users
+		}
+		$this->set('openProjects', $openProjects);
+		$this->set('sentProjects', $sentProjects);
+		$this->set('deliveredProjects', $deliveredProjects);
+	}	
 }
