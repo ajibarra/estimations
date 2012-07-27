@@ -56,7 +56,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Dashboard'), array('controller' => 'app_users', 'action' => 'dashboard')); ?></li>
+		<li><?php echo $this->Html->link(__('Dashboard'), array('controller' => 'users', 'action' => 'dashboard')); ?></li>
 		<li><?php if ($project['Project']['status'] == Project::OPEN) echo $this->Html->link(__('Estimate'), array('controller' => 'estimations', 'action' => 'add', $project['Project']['id']));?></li>
 		<?php if ($this->Session->read('Auth.user.is_admin')): ?>
 			<li><?php if ($project['Project']['status'] == Project::CREATED) echo $this->Html->link(__('Open for estimations'), array('controller' => 'projects', 'action' => 'open', $project['Project']['id']));?></li>

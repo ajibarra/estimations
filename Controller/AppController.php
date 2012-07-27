@@ -52,8 +52,8 @@ class AppController extends Controller {
  * @return void
  */
 	public function beforeFilter() {
-		$this->_setupAuthentication();
-		$this->set('controller', Inflector::underscore($this->name));
+        $this->_setupAuthentication();
+        $this->set('controller', Inflector::underscore($this->name));
 	}
 	
 /**
@@ -65,14 +65,13 @@ class AppController extends Controller {
 		$this->Auth->authenticate = array(
         	'Form' => array(
         		'fields' => array('username' => 'email', 'password' => 'password'), 
-				'userModel' => 'AppUser', 
-				'scope' => array('AppUser.active' => 1)
+				'userModel' => 'User',
+				'scope' => array('User.active' => 1)
         	),
 		);
-		$this->Auth->authorize = array('Estimation');
-		$this->Auth->loginRedirect = array('controller' => 'dashboards', 'action' => 'index');
-		$this->Auth->loginAction = array('controller' => 'app_users', 'action' => 'login');
+        $this->Auth->authorize = array('Estimation');
+		$this->Auth->loginRedirect = array('controller' => 'dashboard', 'action' => 'index');
+		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
 		$this->Auth->authError = __("Sorry, you can't access the page requested", true);
-		
 	}
 }

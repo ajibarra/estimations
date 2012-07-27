@@ -52,8 +52,9 @@ class EstimationsController extends AppController {
 		$this->Estimation->recursive = 0;
 		$this->Paginator->settings = array(
 			'contain' => array('User',
-				'Project' => array('conditions' => array('Project.status' => array(Project::ESTIMATION_SENT,Project::DELIVERED)))	
-			)
+				'Project'
+			),
+            'conditions' => array('OR' => array('Project.status' => array(Project::ESTIMATION_SENT,Project::DELIVERED), 'Estimation.user_id' => $this->Auth->user('id'))
 		);
 		$this->set('estimations', $this->paginate());
 	}

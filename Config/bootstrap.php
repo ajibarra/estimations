@@ -66,4 +66,5 @@ Cache::config('default', array('engine' => 'File'));
 App::uses('IniReader', 'Configure');
 Configure::config('estimation_permission', new IniReader(__DIR__ . DS));
 
-CakePlugin::loadAll(); // Loads all plugins at once
+CakePlugin::load('Migrations');
+CakePlugin::load('DebugKit'); // Loads all plugins at once

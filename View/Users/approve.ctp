@@ -15,7 +15,7 @@
 			<?php echo $this->Form->hidden('User.' . $index . '.id', array('value' => $user['User']['id'] )); ?>
 			<?php echo $this->Form->input('User.' . $index . '.active', array('label' => false)); ?>
 		</td>
-		<td><?php echo h($user['Profile']['name']); ?>&nbsp;</td>
+		<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 	</tr>
 <?php endforeach; ?>

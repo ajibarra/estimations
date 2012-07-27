@@ -57,19 +57,27 @@ class M4e42b80cdf244033b69e709b46540587 extends CakeMigration {
 					),
 					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB'),
 				),
-				'profiles' => array(
-					'id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary'),
-					'user_id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 36),
-					'name' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 255),
-					'indexes' => array(
+				'users' => array(
+                    'id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary'),
+                    'email' => array('type'=>'string', 'null' => true, 'default' => NULL),
+                    'password' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 128),
+                    'name' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 128),
+                    'active' => array('type'=>'boolean', 'null' => true, 'default' => '0'),
+                    'last_login' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
+                    'last_action' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
+                    'is_admin' => array('type'=>'boolean', 'null' => true, 'default' => '0'),
+                    'role' => array('type'=>'string', 'null' => true, 'default' => NULL),
+                    'created' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
+                    'modified' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
+                    'indexes' => array(
                         'PRIMARY' => array('column' => 'id', 'unique' => 1),
-                        'INDEX_USER' => array('column' => 'user_id')
-					),
-				)
+                        'BY_EMAIL' => array('column' => array('email'), 'unique' => 0)
+                    ),
+                ),
 			),
 		),
 		'down' => array(
-			'drop_table' => array('projects', 'clients', 'estimations', 'profiles')
+			'drop_table' => array('projects', 'clients', 'estimations', 'users')
 		),
 	);
 

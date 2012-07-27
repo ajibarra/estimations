@@ -28,7 +28,7 @@
 App::import('Controller', 'Users.Users');
 
 	
-class AppUsersController extends UsersController {
+class UsersController extends AppController {
 /**
  * Controller name
  *
@@ -36,17 +36,10 @@ class AppUsersController extends UsersController {
  */
 	public $name = 'Users';
 
-/**
-* Constructor
-*
-* @return void
-*/
-	public function __construct($request, $response) {
-		$this->uses[] = 'Profile';
-		$this->modelClass = 'User';
-		$this->User = ClassRegistry::init('AppUser');
-		parent::__construct($request, $response);
-	}
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add');
+    }
 	
 /**
  * Approves users to login
@@ -107,20 +100,17 @@ class AppUsersController extends UsersController {
  */
 	public function login() {
 		if ($this->request->is('post')) {
-			if ($this->Auth->login() &&$this->Auth->user()) {
+            if ($this->Auth->login() && $this->Auth->user()) {
 				$this->User->id = $this->Auth->user('id');
 				$this->User->saveField('last_login', date('Y-m-d H:i:s'));
 		
 				if ($this->here == $this->Auth->loginRedirect) {
 					$this->Auth->loginRedirect = '/';
 				}
-				$profile = $this->Profile->find('first', array('conditions' => array(
-					'Profile.user_id' => $this->Auth->user('id')	
-				)));
-				$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $profile['Profile']['name']));
+
+				$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $this->Auth->user('name')));
 				if (!empty($this->request->data)) {
 					$data = $this->request->data[$this->modelClass];
-					$this->_setCookie();
 				}
 		
 				if (empty($data['return_to'])) {
@@ -173,5 +163,17 @@ class AppUsersController extends UsersController {
 		$this->set('openProjects', $openProjects);
 		$this->set('sentProjects', $sentProjects);
 		$this->set('deliveredProjects', $deliveredProjects);
-	}	
+	}
+
+    /**
+     * Common logout action
+     *
+     * @return void
+     */
+    public function logout() {
+        $user = $this->Auth->user();
+        $this->Session->destroy();
+        $this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged out'), $user[$this->{$this->modelClass}->displayField]));
+        $this->redirect($this->Auth->logout());
+    }
 }

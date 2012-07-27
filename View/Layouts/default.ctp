@@ -42,8 +42,8 @@ $user = AuthComponent::user('id');
 			<h1><?php echo $this->Html->link(__('Project Estimations'), Router::url('/')); ?></h1>
 			<div class="menu">
 				<?php if (!empty($user)): ?>
-					<?php if ($this->Session->read('Auth.User.is_admin')) echo $this->Html->link(__('Manage Users'), array('controller' => 'app_users', 'action' => 'approve', 'plugin' => false)) . ' | '; ?>
-					<?php echo $this->Html->link(__('Logout'), array('controller' => 'app_users', 'action' => 'logout')); ?>
+					<?php if ($this->Session->read('Auth.User.is_admin')) echo $this->Html->link(__('Manage Users'), array('controller' => 'users', 'action' => 'approve', 'plugin' => false)) . ' | '; ?>
+					<?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout')); ?>
 				<?php endif; ?>
 			</div>
 		</div>

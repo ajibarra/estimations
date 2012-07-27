@@ -16,7 +16,7 @@
 	foreach ($estimations as $estimation): ?>
 	<tr>
 		<td>
-			<?php echo $this->Html->link($estimation['User']['email'], array('controller' => 'app_users', 'action' => 'view', $estimation['User']['id'])); ?>
+			<?php echo $this->Html->link($estimation['User']['email'], array('controller' => 'users', 'action' => 'view', $estimation['User']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Html->link($estimation['Project']['name'], array('controller' => 'projects', 'action' => 'view', $estimation['Project']['id'])); ?>
